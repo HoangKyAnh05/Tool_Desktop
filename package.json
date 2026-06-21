@@ -1,0 +1,20 @@
+{
+  "name": "desktop-optimizer-pro",
+  "version": "1.0.0",
+  "description": "A beautiful desktop dashboard with animated folders, sound effects, app launcher, and a PC cleanup scanner.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "desktop",
+    "optimizer",
+    "electron",
+    "cleanup"
+  ],
+  "author": "Antigravity",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.6"
+  }
+}

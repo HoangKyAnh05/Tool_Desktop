@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeskOS & PC Optimizer Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Transparent Glass App Shell -->
+    <div class="app-container">
+        
+        <!-- Custom Title Bar (Draggable Window Area) -->
+        <header class="titlebar">
+            <div class="titlebar-logo">
+                <svg viewBox="0 0 24 24" width="20" height="20" class="logo-icon">
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f2fe" />
+                            <stop offset="100%" stop-color="#4facfe" />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#logo-grad)" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <span class="app-title">DeskOS <span class="accent-text">Optimizer Pro</span></span>
+            </div>
+            
+            <div class="titlebar-controls">
+                <button class="sound-toggle-btn secondary-btn" id="soundToggleBtn" title="Toggle Sound FX">
+                    <svg viewBox="0 0 24 24" width="16" height="16" id="soundIconOn" class="icon-svg">
+                        <path fill="currentColor" d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zm-2.5 2.23L7 9H3v6h4l4.5 3.54V5.46zm2 4.25v4.58c1.16-.48 2-1.62 2-2.95s-.84-2.47-2-2.95z"/>
+                    </svg>
+                    <svg viewBox="0 0 24 24" width="16" height="16" id="soundIconOff" class="icon-svg hidden">
+                        <path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                    </svg>
+                </button>
+                <button class="win-btn win-min" id="btnMinimize" title="Minimize">
+                    <svg viewBox="0 0 24 24" width="12" height="12"><rect x="4" y="11" width="16" height="2" fill="currentColor"/></svg>
+                </button>
+                <button class="win-btn win-max" id="btnMaximize" title="Maximize">
+                    <svg viewBox="0 0 24 24" width="12" height="12"><rect x="5" y="5" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                </button>
+                <button class="win-btn win-close" id="btnClose" title="Close">
+                    <svg viewBox="0 0 24 24" width="12" height="12"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-body">
+            <!-- Sidebar Navigation -->
+            <aside class="sidebar">
+                <nav class="nav-menu">
+                    <button class="nav-item active" data-tab="desktop-tab" id="navDesktop">
+                        <svg viewBox="0 0 24 24" width="20" height="20" class="nav-icon">
+                            <rect x="3" y="3" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 15H3M12 15v4M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>Desktop OS</span>
+                    </button>
+                    <button class="nav-item" data-tab="optimizer-tab" id="navOptimizer">
+                        <svg viewBox="0 0 24 24" width="20" height="20" class="nav-icon">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
+                        </svg>
+                        <span>System Optimizer</span>
+                    </button>
+                    <button class="nav-item" data-tab="sysinfo-tab" id="navSysInfo">
+                        <svg viewBox="0 0 24 24" width="20" height="20" class="nav-icon">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>System Specs</span>
+                    </button>
+                    <button class="nav-item" data-tab="taskmgr-tab" id="navTaskManager">
+                        <svg viewBox="0 0 24 24" width="20" height="20" class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                        <span>Process Manager</span>
+                    </button>
+                    <button class="nav-item" data-tab="display-tab" id="navDisplay">
+                        <svg viewBox="0 0 24 24" width="20" height="20" class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <span>Display Control</span>
+                    </button>
+                </nav>
+                
+                <!-- Quick Storage Widget -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">
+                        <span>C: Drive Storage</span>
+                        <span class="widget-value" id="sidebarDiskUsage">--%</span>
+                    </div>
+                    <div class="widget-progress-bg">
+                        <div class="widget-progress" id="sidebarDiskBar" style="width: 0%"></div>
+                    </div>
+                    <span class="widget-subtext" id="sidebarDiskDetails">Checking storage...</span>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content-container">
+                
+                <!-- ================= TAB: DESKTOP OS ================= -->
+                <section class="tab-content active" id="desktop-tab">
+                    <div class="desktop-header">
+                        <div class="header-info">
+                            <h1>My Virtual Desktop</h1>
+                            <p>Organize apps, group files into folders, and launch them dynamically.</p>
+                        </div>
+                        <div class="desktop-actions">
+                            <button class="primary-btn" id="btnNewFolder">
+                                <svg viewBox="0 0 24 24" width="16" height="16" class="btn-icon">
+                                    <path fill="currentColor" d="M20 6h-8l-2-2H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z"/>
+                                </svg>
+                                New Folder Group
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Drag-and-Drop Desktop Grid -->
+                    <div class="desktop-grid" id="desktopGrid">
+                        <!-- Desktop items (Folders and standalone shortcuts) are dynamically loaded here -->
+                    </div>
+                </section>
+
+                <!-- ================= TAB: SYSTEM OPTIMIZER ================= -->
+                <section class="tab-content" id="optimizer-tab">
+                    <div class="optimizer-layout">
+                        <!-- Left Panel: Stats & Scan trigger -->
+                        <div class="optimizer-left">
+                            <div class="glass-card scanner-card">
+                                <h2>Disk Cleanup Engine</h2>
+                                <p>Deep scan temp, cache, download installers, and large files to optimize system performance.</p>
+                                
+                                <div class="scan-radial-container">
+                                    <svg class="radial-progress-svg" viewBox="0 0 160 160">
+                                        <circle class="radial-track" cx="80" cy="80" r="70"></circle>
+                                        <circle class="radial-fill" id="scanProgressRing" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440"></circle>
+                                    </svg>
+                                    <div class="scan-radial-content">
+                                        <span class="scan-percent" id="scanPercentText">0%</span>
+                                        <span class="scan-status-lbl" id="scanStatusText">Ready to Scan</span>
+                                    </div>
+                                </div>
+
+                                <div class="scan-info-row">
+                                    <div class="scan-info-col">
+                                        <span class="info-val" id="scannedFilesCount">0</span>
+                                        <span class="info-lbl">Files Scanned</span>
+                                    </div>
+                                    <div class="scan-info-col">
+                                        <span class="info-val font-warning" id="junkSizeFound">0 MB</span>
+                                        <span class="info-lbl">Junk Detected</span>
+                                    </div>
+                                </div>
+
+                                <div class="scanner-btn-group">
+                                    <button class="glow-btn" id="btnStartScan">
+                                        <span class="btn-shine"></span>
+                                        <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                                        Start Smart Scan
+                                    </button>
+                                    <button class="secondary-btn hidden" id="btnCancelScan">Stop Scan</button>
+                                    <button class="primary-btn clean-btn hidden" id="btnCleanSelected">
+                                        Clean Up Selected
+                                    </button>
+                                    <button class="secondary-btn" id="btnCleanRAM" title="Boost RAM Memory">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" style="color: var(--secondary);"><path fill="currentColor" d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm-2 18H9v-2h6v2zm0-4H9V7h6v8z"/></svg>
+                                        Boost RAM
+                                    </button>
+                                </div>
+
+                                <div class="custom-scan-path">
+                                    <span>or</span>
+                                    <button class="text-link-btn" id="btnSelectScanPath">Scan a custom directory</button>
+                                    <div class="custom-path-display hidden" id="customPathDisplay">
+                                        <span id="customPathText"></span>
+                                        <button class="clear-path-btn" id="btnClearCustomPath" title="Clear Custom Path">×</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Scan Results List -->
+                        <div class="optimizer-right">
+                            <div class="glass-card results-card">
+                                <div class="results-header">
+                                    <h3>Scan Results & Suggestions</h3>
+                                    <div class="results-stats">
+                                        <span id="selectedJunkStats">Selected: 0 files (0 MB)</span>
+                                    </div>
+                                </div>
+
+                                <!-- Filter Tabs -->
+                                <div class="results-filters">
+                                    <button class="filter-tab active" data-filter="all">All</button>
+                                    <button class="filter-tab" data-filter="Temp">Temp Files</button>
+                                    <button class="filter-tab" data-filter="Cache">Cache</button>
+                                    <button class="filter-tab" data-filter="Installer">Installers</button>
+                                    <button class="filter-tab" data-filter="Large File">Large Files</button>
+                                    <button class="filter-tab" data-filter="Unused">Unused Items</button>
+                                    <button class="filter-tab" data-filter="System">System warnings</button>
+                                </div>
+
+                                <div class="results-table-container">
+                                    <div class="results-table-header">
+                                        <div class="col-check">
+                                            <input type="checkbox" id="selectAllCheckbox" checked>
+                                        </div>
+                                        <div class="col-name">File / Folder Name</div>
+                                        <div class="col-rec">Recommendation</div>
+                                        <div class="col-size">Size</div>
+                                        <div class="col-action">Action</div>
+                                    </div>
+                                    
+                                    <div class="results-list" id="scanResultsList">
+                                        <div class="placeholder-message">
+                                            <svg viewBox="0 0 24 24" width="48" height="48" class="placeholder-icon">
+                                                <path fill="currentColor" opacity="0.3" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                            </svg>
+                                            <p>No scan run yet. Hit "Start Smart Scan" to identify junk files slowing down your computer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB: SYSTEM SPECS ================= -->
+                <section class="tab-content" id="sysinfo-tab">
+                    <div class="glass-card sysinfo-container">
+                        <h2>System Specifications</h2>
+                        <p>Detailed performance profile and hardware specifications.</p>
+                        
+                        <div class="sysinfo-grid">
+                            <div class="sysinfo-item">
+                                <div class="sysinfo-icon">
+                                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+                                </div>
+                                <div class="sysinfo-details">
+                                    <span class="sysinfo-lbl">Operating System</span>
+                                    <span class="sysinfo-val" id="specOS">Checking...</span>
+                                </div>
+                            </div>
+
+                            <div class="sysinfo-item">
+                                <div class="sysinfo-icon">
+                                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7c-1.1 0-2 .9-2 2v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg>
+                                </div>
+                                <div class="sysinfo-details">
+                                    <span class="sysinfo-lbl">CPU Model</span>
+                                    <span class="sysinfo-val" id="specCPU">Checking...</span>
+                                </div>
+                            </div>
+
+                            <div class="sysinfo-item">
+                                <div class="sysinfo-icon">
+                                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z"/></svg>
+                                </div>
+                                <div class="sysinfo-details">
+                                    <span class="sysinfo-lbl">Memory (RAM)</span>
+                                    <span class="sysinfo-val" id="specRAM">Checking...</span>
+                                </div>
+                            </div>
+
+                            <div class="sysinfo-item">
+                                <div class="sysinfo-icon">
+                                    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                                </div>
+                                <div class="sysinfo-details">
+                                    <span class="sysinfo-lbl">CPU Cores</span>
+                                    <span class="sysinfo-val" id="specCores">Checking...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sysinfo-charts">
+                            <div class="perf-card">
+                                <h3>RAM Performance</h3>
+                                <div class="perf-content">
+                                    <div class="perf-progress-circle">
+                                        <svg class="radial-progress-svg" viewBox="0 0 120 120">
+                                            <circle class="radial-track" cx="60" cy="60" r="50"></circle>
+                                            <circle class="radial-fill" id="ramUsageRing" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"></circle>
+                                        </svg>
+                                        <span class="perf-percent" id="ramPercentText">0%</span>
+                                    </div>
+                                    <div class="perf-text-details">
+                                        <p id="ramUsageDetails">Used: 0 GB / Free: 0 GB</p>
+                                        <button class="primary-btn boost-ram-btn" id="btnSpecCleanRAM" style="margin-top: 10px; padding: 6px 12px; font-size: 11px; width: fit-content; align-self: flex-start;">
+                                            Boost RAM
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="perf-card">
+                                <h3>Storage Partition (C:)</h3>
+                                <div class="perf-content">
+                                    <div class="perf-progress-circle">
+                                        <svg class="radial-progress-svg" viewBox="0 0 120 120">
+                                            <circle class="radial-track" cx="60" cy="60" r="50"></circle>
+                                            <circle class="radial-fill" id="diskUsageRing" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314"></circle>
+                                        </svg>
+                                        <span class="perf-percent" id="diskPercentText">0%</span>
+                                    </div>
+                                    <div class="perf-text-details">
+                                        <p id="diskUsageDetails">Used: 0 GB / Free: 0 GB</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB: PROCESS MANAGER ================= -->
+                <section class="tab-content" id="taskmgr-tab">
+                    <div class="taskmgr-layout glass-card">
+                        <div class="taskmgr-header">
+                            <div class="header-info">
+                                <h2>Active Process Optimizer</h2>
+                                <p>Scan running system processes and safely end resource-heavy apps to free up CPU and RAM.</p>
+                            </div>
+                            <div class="taskmgr-actions">
+                                <button class="primary-btn" id="btnScanProcesses">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" class="btn-icon">
+                                        <path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                                    </svg>
+                                    Scan Running Processes
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="taskmgr-stats-bar">
+                            <span id="processStatsSummary">Ready to scan running processes.</span>
+                        </div>
+
+                        <div class="taskmgr-table-container">
+                            <div class="taskmgr-table-header">
+                                <div class="col-proc-name">Process Name</div>
+                                <div class="col-proc-cpu">CPU</div>
+                                <div class="col-proc-mem">Memory</div>
+                                <div class="col-proc-rec">Status / Recommendation</div>
+                                <div class="col-proc-action">Action</div>
+                            </div>
+                            <div class="taskmgr-list" id="processList">
+                                <div class="placeholder-message">
+                                    <svg viewBox="0 0 24 24" width="48" height="48" class="placeholder-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                    </svg>
+                                    <p>Click "Scan Running Processes" to view active system processes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= TAB: DISPLAY SWITCHER ================= -->
+                <section class="tab-content" id="display-tab">
+                    <div class="display-header">
+                        <div class="header-info">
+                            <h1>Display Switcher</h1>
+                            <p>Configure screen mirroring, workspace extension, or switch active monitors instantly.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="display-layout">
+                        <!-- Left Column: Connected Displays List -->
+                        <div class="display-col-left glass-card">
+                            <div class="monitor-header">
+                                <h3>Connected Displays</h3>
+                                <button class="secondary-btn" id="btnRefreshScreens" title="Refresh Screen List">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="monitor-desc">Swap screens instantly using system hotkeys (Ctrl+1-9) or control displays in real-time. Click <strong>Hw Go</strong> to begin.</p>
+                            
+                            <div class="monitor-list" id="monitorListContainer">
+                                <!-- Dynamically populated list of monitors -->
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Live Screen Preview -->
+                        <div class="display-col-right glass-card">
+                            <div class="monitor-header">
+                                <h3>Live Screen Preview</h3>
+                            </div>
+                            <p class="monitor-desc">Real-time video feed of the selected screen monitor.</p>
+                            
+                            <div class="monitor-player-box">
+                                <div class="video-container">
+                                    <video id="liveScreenPlayer" class="hidden" autoplay playsinline></video>
+                                    <div class="video-placeholder" id="videoPlaceholder">
+                                        <svg viewBox="0 0 24 24" width="48" height="48" class="placeholder-icon" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                            <line x1="8" y1="21" x2="16" y2="21"/>
+                                            <line x1="12" y1="17" x2="12" y2="21"/>
+                                        </svg>
+                                        <p>No stream active. Select a screen to start previewing.</p>
+                                    </div>
+                                </div>
+                                <button class="secondary-btn hidden" id="btnStopStream">Stop Live Stream</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- ================= MODAL: DYNAMIC FOLDER DETAILS ================= -->
+        <div class="folder-modal-overlay" id="folderModal">
+            <div class="folder-modal glass-card">
+                <div class="folder-modal-header">
+                    <div class="folder-modal-title-group">
+                        <svg viewBox="0 0 24 24" width="28" height="28" class="folder-icon-large">
+                            <path fill="currentColor" d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                        </svg>
+                        <input type="text" class="folder-modal-title-input" id="folderTitleInput" value="New Folder">
+                    </div>
+                    <div class="folder-modal-actions">
+                        <button class="secondary-btn add-app-btn" id="btnFolderAddApp">
+                            <svg viewBox="0 0 24 24" width="14" height="14" class="btn-icon"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            Add Shortcut
+                        </button>
+                        <button class="close-modal-btn" id="btnFolderClose">×</button>
+                    </div>
+                </div>
+                
+                <div class="folder-contents-grid" id="folderContentsGrid">
+                    <!-- App shortcuts inside the active folder are dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- ================= FULLSCREEN SCREEN SWAP OVERLAY ================= -->
+        <div id="screenSwapOverlay" class="screen-swap-overlay hidden">
+            <video id="swapVideoPlayer" autoplay playsinline></video>
+            
+            <div class="swap-hud" id="swapHud">
+                <!-- Collapse Toggle Button -->
+                <button id="btnHudCollapse" class="hud-collapse-btn" title="Collapse HUD">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="4" y1="12" x2="20" y2="12"/>
+                    </svg>
+                </button>
+                
+                <div class="hud-content-wrapper" id="hudContentWrapper">
+                    <span class="swap-status-dot"></span>
+                    <span id="swapHudText">Swapping...</span>
+                    <div class="hud-monitor-selector" id="hudMonitorSelector">
+                        <!-- Dynamic screen selection buttons -->
+                    </div>
+                    
+                    <!-- HUD Action Controls (Record/Replay) -->
+                    <div class="hud-actions-group">
+                        <button id="btnHudRecord" class="hud-action-btn record-btn" title="Start/Stop recording active screen">Record</button>
+                        <button id="btnHudReplay" class="hud-action-btn replay-btn" title="Replay latest recording of active screen">Replay</button>
+                    </div>
+                    
+                    <button class="hud-exit-btn" id="btnHudExit" title="Exit Remote Swap Mode">Exit [ESC]</button>
+                </div>
+
+                <!-- Expanded Toggle (Shown only when collapsed) -->
+                <div id="hudCollapsedIndicator" class="hud-collapsed-indicator" title="Expand HUD">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
